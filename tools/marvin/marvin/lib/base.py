@@ -522,7 +522,7 @@ class VirtualMachine:
                method='GET', hypervisor=None, customcpunumber=None,
                customcpuspeed=None, custommemory=None, rootdisksize=None,
                rootdiskcontroller=None, vpcid=None, macaddress=None, datadisktemplate_diskoffering_list={},
-               properties=None, nicnetworklist=None):
+               properties=None, nicnetworklist=None, dynamicscalingenabled=None):
         """Create the instance"""
 
         cmd = deployVirtualMachine.deployVirtualMachineCmd()
@@ -614,6 +614,9 @@ class VirtualMachine:
 
         if "dhcpoptionsnetworklist" in services:
             cmd.dhcpoptionsnetworklist = services["dhcpoptionsnetworklist"]
+
+        if dynamicscalingenabled is not None:
+            cmd.dynamicscalingenabled = dynamicscalingenabled
 
         cmd.details = [{}]
 
@@ -2293,6 +2296,9 @@ class ServiceOffering:
 
         if "offerha" in services:
             cmd.offerha = services["offerha"]
+
+        if "dynamicscalingenabled" in services:
+            cmd.dynamicscalingenabled = services["dynamicscalingenabled"]
 
         # Service Offering private to that domain
         if domainid:
